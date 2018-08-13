@@ -34,6 +34,7 @@ class HomeController extends Controller
 
         // $get_point = Transactions::where('points', 0)->sum('points');
         $get_point = DB::table('transactions')->sum('points');
+        // $get_transactions = DB::table('transactions')->sum('id');
 
         
 

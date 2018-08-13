@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{ route('get.token') }}"></a>
+                    <a href="{{ route('get.token') }}">Get Murugo Access</a>
                 </div>
             </div>
         </div>

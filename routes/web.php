@@ -56,6 +56,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/home', 'HomeController@delete')->name('delete');
 
+// Route::post('/home', 'HomeController@dumpAll')->name('dumpAll');
+
 Route::post('murugo', 'LoginApiContoller@loginViaMurugo');
 
 Route::get('murugo', function(){

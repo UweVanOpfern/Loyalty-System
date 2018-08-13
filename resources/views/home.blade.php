@@ -15,7 +15,7 @@
                     @endif
 
                     @if($sum)
-                        <h6 style="font-weight:bold;font-size:20px;">Total :{{ $sum }} points</h6>               
+                        <h6 style="font-weight:bold;font-size:20px;">Total :{{ $sum }} Points</h6>        
                         @else
                         <h6 style="color:#ff5050;">Oops, no point found</h6>        
                     @endif
@@ -33,6 +33,10 @@
                     </div>
                     <br>  
                     @endif
+                    <div class="links">
+                    <a href="{{  url('/user') }}" style="font-size:20px;">Access user api</a>
+                    <br><br>
+                </div>
                     <div class="well">
                         <table class="table">
                         <thead>

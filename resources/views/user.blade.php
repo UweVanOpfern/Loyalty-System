@@ -9,46 +9,40 @@
 <div class="container">
    <div class="row">
         <div class="col-md-6 col-offset-3">
-            <h2>Dashboard of user data</h2>
-            
-            <hr>
-            @if($sum)
-                <h2>Total :{{ $sum }} points</h2>               
-                @else
-                <h2>Oops, no point found</h2>        
-            @endif
-            <hr>
-            @if($sum == 0)
-            <h2>No bonus points ! you have 0 zero points on MURUGO</h2> 
-                @else
-                
-            <div class="btn-toolbar">
-               <form method="POST" action="{{ route('delete') }}">
-                  {{csrf_field()}}
-                  <input type="hidden" value="10" name="points">
-                  <button type="submit" class="btn btn-primary">Buy</button>
-                </form>
-            </div>
-                
-            @endif
+            <h2>USER API DATA</h2>
+
+             <button type="submit"  onClick="refreshPage()">Refresh Button</button>
+             <br>
+             <br>
             <div class="well">
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Transaction ID</th>
+                      <th>Name</th>
+                      <th>Price</th>
                       <th>Points</th>
+                      <th>Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                   @foreach($data as $transactions)
+                  @foreach($json['data'] as $data)
                     <tr>
-                      <td>{{ $transactions->id }}</td>
-                      <td>{{ $transactions->points }}</td>
+                      <td>{{ $data['name'] }}</td>
+                      <td>{{ $data['price'] }}</td>
+                      <td>{{ $data['points'] }}</td>
+                      <td>{{ $data['created_at']['date'] }}</td>
                     </tr>
-                    @endforeach
+                  @endforeach
                   </tbody>
                 </table>
             </div>
         </div>    
     </div>
 </div>
+
+
+<script>
+function refreshPage(){
+    window.location.reload();
+} 
+</script>

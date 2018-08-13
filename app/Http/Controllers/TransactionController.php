@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Transactions;
 use Illuminate\Http\Request;
+use App\Classes\RetreiveUserInfo;
+use Session;
 use Log;
 use Illuminate\Support\Facades\DB;
 
@@ -17,15 +19,15 @@ class TransactionController extends Controller
     public function index()
     {
         //
-
-        $get_Data = Transactions::all();
-
-        // $get_point = Transactions::where('points', 0)->sum('points');
-        $get_point = DB::table('transactions')->sum('points');
-
         
+        $userData = new  RetreiveUserInfo();
 
-        return view('user', ['data' => $get_Data,'sum'=>$get_point]);
+        $accessData = $userData->getUserData();
+        
+        $json     = Session::get('json');
+
+        // return view('user');
+        return view('user', ['json' => json_decode($json, true)]);
     }
 
     /**
@@ -93,17 +95,6 @@ class TransactionController extends Controller
     public function destroy()
     {
        
-    }
-
-    public function delete()
-    {
-
-        $consume_point = DB::table("transactions")->orderBy('id',"ASC")->take(1)->delete();
-
-        if($consume_point){
-
-            return back()->withInput()->with('success','10 points consumed with success');
-        }
     }
 
 }
