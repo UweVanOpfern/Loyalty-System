@@ -10,25 +10,26 @@
    <div class="row">
         <div class="col-md-6 col-offset-3">
             <h2>Dashboard of user data</h2>
-            <div class="btn-toolbar">
-               <form method="POST" action="{{ action('TransactionController@store') }}">
-                  {{csrf_field()}}
-                  <input type="hidden" value="10" name="points">
-                  <button type="submit" class="btn btn-primary">Buy</button>
-                </form>
-                <button class="btn btn-danger">Delete</button>
-            </div>
-
+            
+            <hr>
             @if($sum)
                 <h2>Total :{{ $sum }} points</h2>               
                 @else
                 <h2>Oops, no point found</h2>        
             @endif
             <hr>
-            @if($sum >= 100)
-                <h2>You have reached 100 points , you have bonus</h2>
+            @if($sum == 0)
+            <h2>No bonus points ! you have 0 zero points on MURUGO</h2> 
                 @else
-                <h2>No bonus yet! you must reach 100 points</h2> 
+                
+            <div class="btn-toolbar">
+               <form method="POST" action="{{ route('delete') }}">
+                  {{csrf_field()}}
+                  <input type="hidden" value="10" name="points">
+                  <button type="submit" class="btn btn-primary">Buy</button>
+                </form>
+            </div>
+                
             @endif
             <div class="well">
                 <table class="table">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Session;
 
 class LoginController extends Controller
 {
@@ -19,6 +20,26 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+
+    public function loginViaMurugo(Request $request){
+
+        $userCredentials = new  RetreiveUserCredentials();
+
+        $accessResponse = $userCredentials->MurugoResponse();
+        
+        $email = Session::get('email');
+
+        $inputEmail = $request->input('email');
+
+        if($inputEmail!= $email){
+
+            return back()->withInput()->with('error','Email do not match with Murugo records');
+        }else{
+
+            $redirectTo = '/home';
+        }
+        
+    }
 
     /**
      * Where to redirect users after login.
@@ -36,4 +57,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    
+    
 }

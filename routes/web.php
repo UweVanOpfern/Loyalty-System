@@ -50,7 +50,15 @@ Route::get('api','LoyaltyController@generatePoints');
 Route::resource('user','TransactionController');
 
 
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/home', 'HomeController@delete')->name('delete');
+
+Route::post('murugo', 'LoginApiContoller@loginViaMurugo');
+
+Route::get('murugo', function(){
+
+    return view('murugo');
+});

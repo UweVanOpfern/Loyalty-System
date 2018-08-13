@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Transactions;
 use Illuminate\Http\Request;
-use Log;
-use Illuminate\Support\Facades\DB;
+use App\Classes\RetreiveUserCredentials;
+use Session;
 
-class TransactionController extends Controller
+
+class LoginApiContoller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,14 +18,7 @@ class TransactionController extends Controller
     {
         //
 
-        $get_Data = Transactions::all();
-
-        // $get_point = Transactions::where('points', 0)->sum('points');
-        $get_point = DB::table('transactions')->sum('points');
-
-        
-
-        return view('user', ['data' => $get_Data,'sum'=>$get_point]);
+        return view('murugo.index');
     }
 
     /**
@@ -47,16 +40,15 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //
-       
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Transactions  $transactions
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Transactions $transactions)
+    public function show($id)
     {
         //
     }
@@ -64,10 +56,10 @@ class TransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Transactions  $transactions
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Transactions $transactions)
+    public function edit($id)
     {
         //
     }
@@ -76,10 +68,10 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Transactions  $transactions
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transactions $transactions)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -87,23 +79,33 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Transactions  $transactions
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-       
+        //
     }
 
-    public function delete()
-    {
+    public function loginViaMurugo(Request $request){
 
-        $consume_point = DB::table("transactions")->orderBy('id',"ASC")->take(1)->delete();
+        $userCredentials = new  RetreiveUserCredentials();
 
-        if($consume_point){
+        $accessResponse = $userCredentials->MurugoResponse();
+        
+        $email = Session::get('email');
 
-            return back()->withInput()->with('success','10 points consumed with success');
+        $inputEmail = $request->input('email');
+
+        if($inputEmail!= $email){
+
+            return back()->withInput()->with('errors','Email do not match with Murugo records');
+
+        }else{
+
+            return redirect()->route('home')->with('success','redirected successfully');
+            
         }
-    }
 
+    }
 }
