@@ -7,6 +7,9 @@ use App\Classes\RetreiveUserCredentials;
 use Illuminate\Support\Facades\DB;
 use App\Transactions;
 use Session;
+use App\Classes\RetreiveUserInfo;
+use App\Classes\CalculateMerchantPoints;
+use App\Classes\ConsumePoints;
 
 class HomeController extends Controller
 {
@@ -24,42 +27,40 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $userCredentials = new  RetreiveUserCredentials();
 
-        $accessResponse = $userCredentials->MurugoResponse();
+        $cal = new CalculateMerchantPoints();
+
+        $take = $cal->calculatePoints();
+
+        $total_points     = Session::get('total');
+
+        $userData = new  RetreiveUserInfo();
+
+        $accessData = $userData->getUserData();
         
-        $email = Session::get('email');
+        $json     = Session::get('json');
 
-        $get_Data = Transactions::all();
-
-        // $get_point = Transactions::where('points', 0)->sum('points');
-        $get_point = DB::table('transactions')->sum('points');
-        // $get_transactions = DB::table('transactions')->sum('id');
-
-        
-
-        return view('home', ['data' => $get_Data,'sum'=>$get_point]);
+        // return view('user');
+        return view('home', ['json' => json_decode($json, true),'total'=>$total_points]);
     }
 
     public function delete()
     {
+        $objConsume = new ConsumePoints();
+        $take_point_away = $objConsume->consumeUserPoint();
 
-        $consume_point = DB::table("transactions")->orderBy('id',"ASC")->take(1)->delete();
-
-        if($consume_point){
-
-            return back()->withInput()->with('success','10 points consumed with success');
-        }
+        return back()->withInput()->with('success','10 points consumed with success');
+        
     }
 
-    public function dumpAll()
-    {
+    // public function dumpAll()
+    // {
 
-        $dump_all = Transactions::truncate();
+    //     $dump_all = Transactions::truncate();
 
-        if($dump_all){
+    //     if($dump_all){
 
-            return back()->withInput()->with('success','All data dumped with success');
-        }
-    }
+    //         return back()->withInput()->with('success','All data dumped with success');
+    //     }
+    // }
 }

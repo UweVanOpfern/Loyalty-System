@@ -14,46 +14,52 @@
                         </div>
                     @endif
 
-                    @if($sum)
-                        <h6 style="font-weight:bold;font-size:20px;">Total :{{ $sum }} Points</h6>        
-                        @else
-                        <h6 style="color:#ff5050;">Oops, no point found</h6>        
-                    @endif
-                    @if($sum == 0)
-                    <h6 style="color:#ff0000;">No bonus points ! you have 0 zero points on MURUGO</h6> 
-                        @else
-                        
-                    <div class="btn-toolbar">
-                    <form method="POST" action="{{ route('delete') }}">
+                     @if ($total)
+                        <div class="btn-toolbar">
+                            <form method="POST" action="{{ route('delete')}}">
 
-                        {{csrf_field()}}
-                        <input type="hidden" value="10" name="points">
-                        <button type="submit" class="btn btn-primary">Buy</button>
-                        </form>
-                    </div>
-                    <br>  
-                    @endif
-                    <div class="links">
-                    <a href="{{  url('/user') }}" style="font-size:20px;">Access user api</a>
-                    <br><br>
+                                {{csrf_field()}}
+                                <input type="hidden" value="10" name="points">
+                                <button type="submit" class="btn btn-primary">Buy</button>
+                            </form>
+                        </div>
+                        <br>
+                        <h2>TOTAL POINTS : <?php echo $total?></h2>
+                        <br>
+                    @else
+                        <h3>Oops, no point found</h3>
+                    @endif 
+                    
+                    <button type="submit"  onClick="refreshPage()">Refresh Button</button>
+                    <br>
                 </div>
                     <div class="well">
                         <table class="table">
                         <thead>
                             <tr>
-                            <th>Transaction ID</th>
-                            <th>Murugo user email</th>
+                            <th>Merchant name</th>
+                            <th>Price</th>
                             <th>Points</th>
+                            <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($data as $transactions)
-                            <tr>
-                            <td>{{ $transactions->id }}</td>
-                            <td>{{ Session::get('email') }}</td>
-                            <td>{{ $transactions->points }}</td>
-                            </tr>
-                            @endforeach
+                        @foreach($json['data'] as $data)
+                        <tr>
+                            <td>{{ $data['name'] }}</td>
+                            <td>{{ $data['price'] }}</td>
+                            
+                            @if($data['name'] == "Cafe Neo")
+                            <td>{{ $data['price'] * 0.1 }}</td>
+                            @elseif($data['name'] == "Abdoul Market")
+                            <td>{{ $data['price'] * 0.2 }}</td>
+                            @else
+                            <td>{{ $data['points'] }}</td>
+                            @endif
+                            
+                            <td>{{ $data['created_at']['date'] }}</td>
+                        </tr>
+                        @endforeach
                         </tbody>
                         </table>
                     </div>
@@ -63,3 +69,9 @@
     </div>
 </div>
 @endsection
+
+<script>
+    function refreshPage(){
+        window.location.reload();
+    } 
+</script>

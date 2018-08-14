@@ -46,9 +46,7 @@ Route::get('/callback', function (Request $request) {
 
 Route::get('api','LoyaltyController@generatePoints');
 
-
 Route::resource('user','TransactionController');
-
 
 Auth::routes();
 

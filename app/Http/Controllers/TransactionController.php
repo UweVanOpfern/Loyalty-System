@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Transactions;
 use Illuminate\Http\Request;
 use App\Classes\RetreiveUserInfo;
+use App\Classes\CalculateMerchantPoints;
 use Session;
 use Log;
 use Illuminate\Support\Facades\DB;
@@ -19,15 +20,15 @@ class TransactionController extends Controller
     public function index()
     {
         //
-        
-        $userData = new  RetreiveUserInfo();
+        $cal = new CalculateMerchantPoints();
 
-        $accessData = $userData->getUserData();
-        
-        $json     = Session::get('json');
+        $take = $cal->calculatePoints();
+
+        $total_points     = Session::get('total');
+       
 
         // return view('user');
-        return view('user', ['json' => json_decode($json, true)]);
+        return view('user',['total' => $total_points]);
     }
 
     /**

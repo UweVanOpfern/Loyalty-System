@@ -10,7 +10,6 @@
    <div class="row">
         <div class="col-md-6 col-offset-3">
             <h2>USER API DATA</h2>
-
              <button type="submit"  onClick="refreshPage()">Refresh Button</button>
              <br>
              <br>
@@ -18,21 +17,14 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Name</th>
+                      <th>Merchant name</th>
                       <th>Price</th>
                       <th>Points</th>
                       <th>Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                  @foreach($json['data'] as $data)
-                    <tr>
-                      <td>{{ $data['name'] }}</td>
-                      <td>{{ $data['price'] }}</td>
-                      <td>{{ $data['points'] }}</td>
-                      <td>{{ $data['created_at']['date'] }}</td>
-                    </tr>
-                  @endforeach
+                  <?php echo $total;?>
                   </tbody>
                 </table>
             </div>
