@@ -21,8 +21,10 @@ class CalculateMerchantPoints{
         $total_abdoul = 0;
 
         foreach($result['data'] as $data){
+            
             // echo $data['price'];
-            $data['name'];
+            $userID = $data['user_id'];
+            Session::put('users',$userID);
 
             if($data['name'] == "Cafe Neo"){
 
@@ -51,4 +53,28 @@ class CalculateMerchantPoints{
 
         Session::put('total',$total_points);
     }
+
+    // public function calculateSingleMerchantPoints(){
+
+    //     $userData = new  RetreiveUserInfo();
+
+    //     $accessData = $userData->getUserData();
+        
+    //     $json     = Session::get('json');
+
+    //     $result = json_decode($json, true);
+
+    //     foreach($result['data'] as $data){
+
+
+    //         if( $userID = $data['user_id']){
+
+    //             Session::put('total',$total_points);
+    //         }
+           
+
+           
+    //     }
+
+    // }
 }

@@ -41,6 +41,9 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                             @if(Session::has('email'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/home') }}"><strong>Home</strong></a>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Session::get('email') }} <span class="caret"></span>

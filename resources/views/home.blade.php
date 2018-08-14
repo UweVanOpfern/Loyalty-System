@@ -15,22 +15,13 @@
                     @endif
 
                      @if ($total)
-                        <div class="btn-toolbar">
-                            <form method="POST" action="{{ route('delete')}}">
-
-                                {{csrf_field()}}
-                                <input type="hidden" value="10" name="points">
-                                <button type="submit" class="btn btn-primary">Buy</button>
-                            </form>
-                        </div>
-                        <br>
-                        <h2>TOTAL POINTS : <?php echo $total?></h2>
+                        <h2>TOTAL POINTS : <?php echo $total?> of all merchants</h2>
                         <br>
                     @else
                         <h3>Oops, no point found</h3>
-                    @endif 
+                    @endif
                     
-                    <button type="submit"  onClick="refreshPage()">Refresh Button</button>
+                    <button type="submit"  onClick="refreshPage()">Refresh</button>
                     <br>
                 </div>
                     <div class="well">
@@ -46,7 +37,7 @@
                         <tbody>
                         @foreach($json['data'] as $data)
                         <tr>
-                            <td>{{ $data['name'] }}</td>
+                            <td><a href="/user/{{ $data['user_id'] }}/edit " style="font-size:14px;">{{ $data['name'] }}</a></td>
                             <td>{{ $data['price'] }}</td>
                             
                             @if($data['name'] == "Cafe Neo")

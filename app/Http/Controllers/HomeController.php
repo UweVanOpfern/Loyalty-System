@@ -43,15 +43,7 @@ class HomeController extends Controller
         // return view('user');
         return view('home', ['json' => json_decode($json, true),'total'=>$total_points]);
     }
-
-    public function delete()
-    {
-        $objConsume = new ConsumePoints();
-        $take_point_away = $objConsume->consumeUserPoint();
-
-        return back()->withInput()->with('success','10 points consumed with success');
-        
-    }
+    
 
     // public function dumpAll()
     // {

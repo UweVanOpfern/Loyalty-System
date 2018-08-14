@@ -19,16 +19,14 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
         $cal = new CalculateMerchantPoints();
 
         $take = $cal->calculatePoints();
 
         $total_points     = Session::get('total');
-       
-
-        // return view('user');
-        return view('user',['total' => $total_points]);
+        $userID     = Session::get('user');
+        
+        return view('generate');
     }
 
     /**

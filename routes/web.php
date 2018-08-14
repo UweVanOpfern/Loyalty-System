@@ -46,13 +46,13 @@ Route::get('/callback', function (Request $request) {
 
 Route::get('api','LoyaltyController@generatePoints');
 
-Route::resource('user','TransactionController');
+Route::resource('user','UserController');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/home', 'HomeController@delete')->name('delete');
+Route::post('/user', 'UserController@delete')->name('delete');
 
 // Route::post('/home', 'HomeController@dumpAll')->name('dumpAll');
 
